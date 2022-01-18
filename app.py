@@ -16,7 +16,7 @@ class ObjectDetection :
         self.youtube_url = youtube_url
         self.video_path = video_path
         device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-        self.model = torch.hub.load('ultralytics/yolov5', 'yolov5s', pretrained=True, device=device)
+        self.model = torch.hub.load('ultralytics/yolov5', 'yolov5s', device=device)
 
     def run(self):
         # Loop until the end of the video
@@ -58,7 +58,7 @@ class ObjectDetection :
             # Capture frame-by-frame
             _, frame = stream.read()
             time_elapsed = time.time() - prev
-
+            
             frame = cv2.resize(frame, (640, 480), fx = 0, fy = 0)
 
             # Suppress warning false from yolov5 if you're not using cuda
@@ -66,7 +66,7 @@ class ObjectDetection :
                 warnings.filterwarnings("ignore")
             if time_elapsed > 1./frame_rate:
                 prev = time.time()
-                result = self.model([frame])
+                result = self.model([frame], size=128)
                 result.render()
                 for img in result.imgs:
                     cv2.imshow('Classify', img)
@@ -90,7 +90,7 @@ if __name__ == "__main__":
     parser.add_argument("--store_input_file", dest="store_input_file", type=str)
 
     parser.set_defaults(youtube_link="")
-    parser.set_defaults(fps=5)
+    parser.set_defaults(fps=20)
     parser.set_defaults(ignore_warnings=True)
     parser.set_defaults(video_path="")
     parser.set_defaults(store_input_file='N')
