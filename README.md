@@ -1,6 +1,6 @@
 # Real time Object Detection
 
-This repository makes use of the Object Detection Archietecture, [YOLOV5](https://github.com/ultralytics/yolov5), to do real time object detection on webcam stream, youtube videos, and normal videos. I made use of [OpenCV2](https://opencv.org/) to run object detection on each pixel from the video.
+This repository makes use of the Object Detection Archietecture, [YOLOV5](https://github.com/ultralytics/yolov5), to do real time object detection on webcam stream, youtube videos, and normal videos. I made use of [OpenCV2](https://opencv.org/) to run object detection on each frame of the video.
 
 
 ## Installation
@@ -27,6 +27,7 @@ From Local video
 ```
 python3 app.py --video_path <PATH_TO_VIDEO>
 ```
+
 ## Demo
 ### Using Web Cam
 ![Alt Text](./assets/webcam.gif)
@@ -35,3 +36,7 @@ python3 app.py --video_path <PATH_TO_VIDEO>
 ![Alt Text](./assets/nba.gif)
 
 
+## Tools Used
+[PyTorch Hub](https://pytorch.org/hub/)
+[Pafy](https://pypi.org/project/pafy/)
+[FFMPEG](https://www.ffmpeg.org/)
