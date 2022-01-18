@@ -32,8 +32,12 @@ class ObjectDetection :
                 # Download the video
                 video = pafy.new(self.youtube_url)
                 best = video.getbest(preftype="mp4")
-                best.download("input.mp4")
-                stream = cv2.VideoCapture("input.mp4")
+                index = os.system("ls inputs | wc -l")
+                if not os.path.exists("inputs"):
+                    os.makedirs("inputs")
+                video_path = "inputs/input-" + str(index) + ".mp.4"
+                best.download(video_path)
+                stream = cv2.VideoCapture(video_path)
             else:
                 print('Invalid youtube url: {}'.format(self.youtube_url))
                 return
@@ -56,7 +60,6 @@ class ObjectDetection :
                 result.render()
                 for img in result.imgs:
                     cv2.imshow('Classify', img)
-        
             # define q as the exit button
             if cv2.waitKey(25) & 0xFF == ord('q'):
                 break
@@ -80,7 +83,7 @@ if __name__ == "__main__":
     parser.add_argument("--store_input_file", dest="store_input_file", type=bool)
 
     parser.set_defaults(youtube_link="")
-    parser.set_defaults(fps=4)
+    parser.set_defaults(fps=5)
     parser.set_defaults(ignore_warnings=True)
     parser.set_defaults(video_path="")
     parser.set_defaults(store_input_file=False)
@@ -90,4 +93,4 @@ if __name__ == "__main__":
     obj.detect_object()
     
     if opt.store_input_file == False:
-        os.system("rm -f input.mp4")
+        os.system("rm -f inputs/*")
