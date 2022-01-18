@@ -18,7 +18,7 @@ class ObjectDetection :
         device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
         self.model = torch.hub.load('ultralytics/yolov5', 'yolov5s', pretrained=True, device=device)
 
-    def detect_object(self):
+    def run(self):
         # Loop until the end of the video
         stream = cv2.VideoCapture(0)
         if self.youtube_url == "":
@@ -30,20 +30,31 @@ class ObjectDetection :
             # Check if this is a valid youtube url
             if re.match(YOUTUBE_REGEX, self.youtube_url):
                 # Download the video
-                video = pafy.new(self.youtube_url)
-                best = video.getbest(preftype="mp4")
-                index = os.system("ls inputs | wc -l")
-                if not os.path.exists("inputs"):
-                    os.makedirs("inputs")
-                video_path = "inputs/input-" + str(index) + ".mp.4"
-                best.download(video_path)
+                video_path = self.download_best(self.youtube_url)            
                 stream = cv2.VideoCapture(video_path)
             else:
                 print('Invalid youtube url: {}'.format(self.youtube_url))
                 return
+        # Detect Objects for given stream
+        self.detect_objects(stream)
+        return
 
-        frame_rate = opt.fps
-        prev = 0
+    def get_video_path(self):
+        index = os.system("ls inputs | wc -l")
+        if not os.path.exists("inputs"):
+            os.makedirs("inputs")
+        video_path = "inputs/input-" + str(index) + ".mp4"
+        return video_path
+
+    def download_best(self, youtube_url):
+        video = pafy.new(self.youtube_url)
+        best = video.getbest(preftype="mp4")
+        video_path = self.get_video_path()
+        best.download(video_path)
+        return video_path
+    
+    def detect_objects(self, stream):
+        frame_rate, prev = opt.fps, 0
         while stream.isOpened():
             # Capture frame-by-frame
             _, frame = stream.read()
@@ -68,9 +79,6 @@ class ObjectDetection :
         stream.release()
         # Closes all the windows currently opened.
         cv2.destroyAllWindows()
-
-        return
-    
     
 
 
@@ -80,17 +88,17 @@ if __name__ == "__main__":
     parser.add_argument("--fps", dest="fps", type=int, help="enter desired fps")
     parser.add_argument("--ignore_warnings", dest="ignore_warnings", type=bool)
     parser.add_argument("--video_path", dest="video_path", type=str, help="enter a valid video path")
-    parser.add_argument("--store_input_file", dest="store_input_file", type=bool)
+    parser.add_argument("--store_input_file", dest="store_input_file", type=str)
 
     parser.set_defaults(youtube_link="")
     parser.set_defaults(fps=5)
     parser.set_defaults(ignore_warnings=True)
     parser.set_defaults(video_path="")
-    parser.set_defaults(store_input_file=False)
+    parser.set_defaults(store_input_file='N')
     
     opt = parser.parse_args()
     obj = ObjectDetection(opt.youtube_link, opt.video_path)
-    obj.detect_object()
+    obj.run()
     
-    if opt.store_input_file == False:
+    if opt.store_input_file == 'N':
         os.system("rm -f inputs/*")

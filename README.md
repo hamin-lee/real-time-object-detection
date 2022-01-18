@@ -27,6 +27,12 @@ From Local video
 ```
 python3 app.py --video_path <PATH_TO_VIDEO>
 ```
+
+To Store files downloaded from Youtube
+```
+python3 app.py --store_input_file Y --youtube_link <YOUTUBE_LINK>
+```
+
 ## Demo
 ### Using Web Cam
 ![Alt Text](./assets/webcam.gif)
