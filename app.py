@@ -20,7 +20,6 @@ class ObjectDetection :
 
     def run(self):
         # Loop until the end of the video
-        stream = cv2.VideoCapture(0)
         if self.youtube_url == "":
             if self.video_path == "":
                 stream = cv2.VideoCapture(0)
