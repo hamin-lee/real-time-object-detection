@@ -7,6 +7,12 @@ This repository makes use of the Object Detection Archietecture, [YOLOV5](https:
 ```
 pip install -r requirements.txt
 ```
+## Demo
+### Using Web Cam
+![Alt Text](./assets/webcam.gif)
+
+### YouTube Video
+![Alt Text](./assets/nba.gif)
 
 ## Getting Started
 Directly from the webcam
@@ -32,13 +38,6 @@ To Store files downloaded from Youtube
 ```
 python3 app.py --store_input_file Y --youtube_link <YOUTUBE_LINK>
 ```
-
-## Demo
-### Using Web Cam
-![Alt Text](./assets/webcam.gif)
-
-### YouTube Video
-![Alt Text](./assets/nba.gif)
 
 
 ## Tools Used
