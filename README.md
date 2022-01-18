@@ -1,6 +1,6 @@
 # Real time Object Detection
 
-This repository makes use of the Object Detection Archietecture, [YOLOV5](https://github.com/ultralytics/yolov5), to do real time object detection on webcam stream, youtube videos, and normal videos. I made use of [OpenCV2](https://opencv.org/) to run object detection on each pixel from the video.
+This repository makes use of the Object Detection Archietecture, [YOLOV5](https://github.com/ultralytics/yolov5), to do real time object detection on webcam stream, youtube videos, and normal videos. I made use of [OpenCV2](https://opencv.org/) to run object detection on each frame of the video.
 
 
 ## Installation
@@ -41,8 +41,7 @@ python3 app.py --store_input_file Y --youtube_link <YOUTUBE_LINK>
 ![Alt Text](./assets/nba.gif)
 
 
-## License
-
-Detectron2 is released under the [Apache 2.0 license](LICENSE).
-
-
+## Tools Used
+[PyTorch Hub](https://pytorch.org/hub/)
+[Pafy](https://pypi.org/project/pafy/)
+[FFMPEG](https://www.ffmpeg.org/)
