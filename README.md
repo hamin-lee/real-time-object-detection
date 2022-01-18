@@ -35,8 +35,3 @@ python3 app.py --video_path <PATH_TO_VIDEO>
 ![Alt Text](./assets/nba.gif)
 
 
-## License
-
-Detectron2 is released under the [Apache 2.0 license](LICENSE).
-
-
