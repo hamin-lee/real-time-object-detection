@@ -11,7 +11,7 @@ pip install -r requirements.txt
 ### Using Web Cam
 ![Alt Text](./assets/webcam.gif)
 
-### YouTube Video
+### Video
 ![Alt Text](./assets/archery.gif)
 
 ## Getting Started
