@@ -12,7 +12,7 @@ pip install -r requirements.txt
 ![Alt Text](./assets/webcam.gif)
 
 ### YouTube Video
-![Alt Text](./assets/nba.gif)
+![Alt Text](./assets/archery.gif)
 
 ## Getting Started
 Directly from the webcam
