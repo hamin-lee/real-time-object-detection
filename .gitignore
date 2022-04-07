@@ -1,2 +1,3 @@
 /runs/*
 yolov5s.pt
+.DS_Store

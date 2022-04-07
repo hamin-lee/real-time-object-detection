@@ -6,11 +6,8 @@ import re
 import warnings
 import time
 import os
-
   
 YOUTUBE_REGEX = "^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$"
-
-
 class ObjectDetection :
     def __init__(self, youtube_url="", video_path=""):
         self.youtube_url = youtube_url
@@ -26,9 +23,7 @@ class ObjectDetection :
             else:
                 stream = cv2.VideoCapture(self.video_path)
         else:
-            # Check if this is a valid youtube url
             if re.match(YOUTUBE_REGEX, self.youtube_url):
-                # Download the video
                 video_path = self.download_best(self.youtube_url)            
                 stream = cv2.VideoCapture(video_path)
             else:
@@ -51,7 +46,8 @@ class ObjectDetection :
         video_path = self.get_video_path()
         best.download(video_path)
         return video_path
-    
+
+    # https://github.com/ultralytics/yolov5
     def detect_objects(self, stream):
         frame_rate, prev = opt.fps, 0
         while stream.isOpened():
@@ -66,7 +62,7 @@ class ObjectDetection :
                 warnings.filterwarnings("ignore")
             if time_elapsed > 1./frame_rate:
                 prev = time.time()
-                result = self.model([frame], size=128)
+                result = self.model([frame], size=48)
                 result.render()
                 for img in result.imgs:
                     cv2.imshow('Classify', img)
