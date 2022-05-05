@@ -12,16 +12,12 @@ class ObjectDetection :
     def __init__(self, youtube_url="", video_path=""):
         self.youtube_url = youtube_url
         self.video_path = video_path
-        device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-        self.model = torch.hub.load('ultralytics/yolov5', 'yolov5s', device=device)
+        self.model = torch.hub.load('ultralytics/yolov5', 'yolov5s', device=torch.device("cuda:0" if torch.cuda.is_available() else "cpu"))
 
     def run(self):
         # Loop until the end of the video
         if self.youtube_url == "":
-            if self.video_path == "":
-                stream = cv2.VideoCapture(0)
-            else:
-                stream = cv2.VideoCapture(self.video_path)
+            stream = cv2.VideoCapture(0) if self.video_path == "" else cv2.VideoCapture(self.video_path)
         else:
             if re.match(YOUTUBE_REGEX, self.youtube_url):
                 video_path = self.download_best(self.youtube_url)            
